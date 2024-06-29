@@ -8,10 +8,24 @@ def load_data(file_path):
 
 
 animals_data = load_data('animals_data.json')
+
+
 # print(animals_data)
 
 
 def print_animals():
+    """ Prints information about animals from a provided JSON data structure.
+
+        This function iterates over a list of animal dictionaries (loaded
+        presumably from a JSON file) and prints details about each animal,
+        including its name, diet, location, and type (if available).
+
+        Args:
+            No parameter (data is loaded from 'animals_data')
+
+        Returns:
+            None
+    """
     for animal in animals_data:
         print(f'Name:', animal["name"])
         print(f'Diet:', animal["characteristics"]["diet"])
