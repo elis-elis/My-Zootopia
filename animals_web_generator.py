@@ -46,6 +46,11 @@ def replace_placeholder(template, replacement):
     return template.replace("__REPLACE_ANIMALS_INFO__", replacement)
 
 
+def write_to_html_file(content):
+    with open('animals.html', "w") as new_file:
+        new_file.write(content)
+
+
 def main():
     """The main function to execute the entire process.
 
@@ -58,8 +63,7 @@ def main():
     template_content = read_template()
     animal_info = generate_animals_info()
     replaced_template = replace_placeholder(template_content, animal_info)
-
-    print(replaced_template)
+    write_to_html_file(replaced_template)
 
 
 if __name__ == "__main__":
