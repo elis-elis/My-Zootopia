@@ -16,32 +16,32 @@ def read_template():
         return content.read()
 
 
-def generate_animals_info():
-    """Generates a string with the HTML content for the animals' data."""
-    output = ''
-    for animal in animals_data:
-        # append information to each string
-        output += '<li class="cards__item">'
-        output += f'<div class="card__title"> {animal["name"]}<br/></div>\n'
-        output += '<p class="card__text">'
-        output += f'<strong>Diet:</strong> {animal["characteristics"]["diet"]}<br/>\n'
-        output += f'<strong>Location:</strong> {animal["locations"][0]}<br/>\n'
-        if 'type' in animal["characteristics"]:
-            output += f'<strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n'
-        output += '</p>'
-        output += '</li>'
-    print(output)
+def serialize_animal(animal_obj):
+    """Generates a string with the HTML content for a single animal."""
+    output = '<li class="cards__item">\n'
+    output += f'  <div class="card__title">{animal_obj["name"]}</div>\n'
+    output += '  <p class="card__text">\n'
+    output += f'    <strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
+    output += f'    <strong>Location:</strong> {animal_obj["locations"][0]}<br/>\n'
+    if 'type' in animal_obj["characteristics"]:
+        output += f'    <strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n'
+    output += '  </p>\n'
+    output += '</li>\n'
     return output
 
 
-# generate_animals_info()
+def generate_animals_info(data):
+    """Generates a string with the HTML content for all animals."""
+    output = ''
+    for animal in data:
+        output += serialize_animal(animal)
+    return output
 
 
 def replace_placeholder(template, replacement):
     """Replaces the placeholder text in the HTML template
     with the provided replacement string.
     """
-
     return template.replace("__REPLACE_ANIMALS_INFO__", replacement)
 
 
@@ -53,11 +53,10 @@ def write_to_html_file(content):
 
 def main():
     template_content = read_template()
-    animal_info = generate_animals_info()
+    animal_info = generate_animals_info(animals_data)
     replaced_template = replace_placeholder(template_content, animal_info)
     write_to_html_file(replaced_template)
 
 
 if __name__ == "__main__":
     main()
-
