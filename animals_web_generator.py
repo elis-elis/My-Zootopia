@@ -21,11 +21,14 @@ def generate_animals_info():
     output = ''
     for animal in animals_data:
         # append information to each string
-        output += f'Name: {animal["name"]}\n'
-        output += f'Diet: {animal["characteristics"]["diet"]}\n'
-        output += f'Location: {animal["locations"][0]}\n'
+        output += '<li class="cards__item">'
+        output += f'Name: {animal["name"]}<br/>\n'
+        output += f'Diet: {animal["characteristics"]["diet"]}<br/>\n'
+        output += f'Location: {animal["locations"][0]}<br/>\n'
         if 'type' in animal["characteristics"]:
-            output += f'Type: {animal["characteristics"]["type"]}\n'
+            output += f'Type: {animal["characteristics"]["type"]}<br/>\n'
+        output += '</li>'
+    print(output)
     return output
 
 
@@ -33,33 +36,20 @@ def generate_animals_info():
 
 
 def replace_placeholder(template, replacement):
-    """Replaces the placeholder text in the HTML template with the provided replacement string.
-
-    Args:
-        template (str): The HTML template content as a string.
-        replacement (str): The string to replace the placeholder with.
-
-    Returns:
-        str: The modified HTML content with the placeholder replaced.
+    """Replaces the placeholder text in the HTML template
+    with the provided replacement string.
     """
 
     return template.replace("__REPLACE_ANIMALS_INFO__", replacement)
 
 
 def write_to_html_file(content):
+    """Writes the provided HTML content to a new file."""
     with open('animals.html', "w") as new_file:
-        new_file.write(content)
+        return new_file.write(content)
 
 
 def main():
-    """The main function to execute the entire process.
-
-    This function calls the necessary functions to load animal data, generate HTML content,
-    replace the placeholder in the template, and potentially write the result to a new file.
-
-    You can modify this function to suit your specific needs, such as writing the output to a file.
-    """
-
     template_content = read_template()
     animal_info = generate_animals_info()
     replaced_template = replace_placeholder(template_content, animal_info)
