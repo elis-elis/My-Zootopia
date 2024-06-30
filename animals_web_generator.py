@@ -22,11 +22,13 @@ def generate_animals_info():
     for animal in animals_data:
         # append information to each string
         output += '<li class="cards__item">'
-        output += f'Name: {animal["name"]}<br/>\n'
-        output += f'Diet: {animal["characteristics"]["diet"]}<br/>\n'
-        output += f'Location: {animal["locations"][0]}<br/>\n'
+        output += f'<div class="card__title"> {animal["name"]}<br/></div>\n'
+        output += '<p class="card__text">'
+        output += f'<strong>Diet:</strong> {animal["characteristics"]["diet"]}<br/>\n'
+        output += f'<strong>Location:</strong> {animal["locations"][0]}<br/>\n'
         if 'type' in animal["characteristics"]:
-            output += f'Type: {animal["characteristics"]["type"]}<br/>\n'
+            output += f'<strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n'
+        output += '</p>'
         output += '</li>'
     print(output)
     return output
