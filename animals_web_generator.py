@@ -18,14 +18,15 @@ def read_template():
 
 def serialize_animal(animal_obj):
     """Generates a string with the HTML content for a single animal."""
-    output = '<li class="cards__item">\n'
-    output += f'  <div class="card__title">{animal_obj["name"]}</div>\n'
-    output += '  <p class="card__text">\n'
-    output += f'    <strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
-    output += f'    <strong>Location:</strong> {animal_obj["locations"][0]}<br/>\n'
+    output = ''
+    output += '<li class="cards__item">\n'
+    output += f'<div class="card__title">{animal_obj["name"]}</div>\n'
+    output += '<p class="card__text">\n'
+    output += f'<strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
+    output += f'<strong>Location:</strong> {animal_obj["locations"][0]}<br/>\n'
     if 'type' in animal_obj["characteristics"]:
-        output += f'    <strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n'
-    output += '  </p>\n'
+        output += f'<strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n'
+    output += '</p>\n'
     output += '</li>\n'
     return output
 
