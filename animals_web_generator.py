@@ -53,13 +53,14 @@ def write_to_html_file(content):
 
 
 def main():
-    animal_name = "Fox"
+    animal_name = input("Enter animal you want to know: ")
     animals_data = fetch_animal(animal_name)
     if animals_data:
         template_content = read_template()
         animal_info = generate_animals_info(animals_data)
         replaced_template = replace_placeholder(template_content, animal_info)
         write_to_html_file(replaced_template)
+    print("it's all done. Website was successfully generated to the file animals.html.")
 
 
 if __name__ == "__main__":
