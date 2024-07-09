@@ -9,8 +9,7 @@ def fetch_animal(name):
         if data:
             return data
         else:
-            print(f"There's no such animal '{name}' here.")
-            return []
+            return None
     else:
         print("Error:", response.status_code, response.text)
         return []
@@ -37,11 +36,19 @@ def serialize_animal(animal_obj):
     return output
 
 
-def generate_animals_info(data):
+def generate_error_message(animal_name):
+    """Generates an HTML string with an error message for a non-existent animal."""
+    return f'<h2>The animal "{animal_name}" doesn\'t exist.</h2>'
+
+
+def generate_animals_info(data, animal_name):
     """Generates a string with the HTML content for all animals."""
     output = ''
-    for animal in data:
-        output += serialize_animal(animal)
+    if data:  # Check if data is not None (API call successful)
+        for animal in data:
+            output += serialize_animal(animal)
+    else:
+        output = generate_error_message(animal_name)  # Generate error message
     return output
 
 
@@ -49,6 +56,8 @@ def replace_placeholder(template, replacement):
     """Replaces the placeholder text in the HTML template
     with the provided replacement string.
     """
+    if replacement is None:
+        replacement = ''
     return template.replace("__REPLACE_ANIMALS_INFO__", replacement)
 
 
@@ -61,14 +70,11 @@ def write_to_html_file(content):
 def main():
     animal_name = input("Enter animal you want to know: ")
     animals_data = fetch_animal(animal_name)
-    if animals_data:
-        template_content = read_template()
-        animal_info = generate_animals_info(animals_data)
-        replaced_template = replace_placeholder(template_content, animal_info)
-        write_to_html_file(replaced_template)
-        print("it's all done. Website was successfully generated to the file animals.html.")
-    else:
-        print("No data available to generate the webpage.")
+    template_content = read_template()
+    content_to_replace = generate_animals_info(animals_data, animal_name)
+    replaced_template = replace_placeholder(template_content, content_to_replace)
+    write_to_html_file(replaced_template)
+    print("it's all done. Website was successfully generated to the file animals.html.")
 
 
 if __name__ == "__main__":
