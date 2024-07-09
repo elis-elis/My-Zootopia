@@ -5,9 +5,15 @@ def fetch_animal(name):
     api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(name)
     response = requests.get(api_url, headers={'X-Api-Key': 'a0ZGEN85wwKRoRX/pNb9eQ==QwE9jROfxws2oVNM'})
     if response.status_code == requests.codes.ok:
-        return response.json()
+        data = response.json()
+        if data:
+            return data
+        else:
+            print(f"There's no such animal '{name}' here.")
+            return []
     else:
         print("Error:", response.status_code, response.text)
+        return []
 
 
 def read_template():
@@ -60,7 +66,9 @@ def main():
         animal_info = generate_animals_info(animals_data)
         replaced_template = replace_placeholder(template_content, animal_info)
         write_to_html_file(replaced_template)
-    print("it's all done. Website was successfully generated to the file animals.html.")
+        print("it's all done. Website was successfully generated to the file animals.html.")
+    else:
+        print("No data available to generate the webpage.")
 
 
 if __name__ == "__main__":
