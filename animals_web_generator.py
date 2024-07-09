@@ -1,4 +1,3 @@
-import json
 import requests
 
 
@@ -6,7 +5,7 @@ def fetch_animal(name):
     api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(name)
     response = requests.get(api_url, headers={'X-Api-Key': 'a0ZGEN85wwKRoRX/pNb9eQ==QwE9jROfxws2oVNM'})
     if response.status_code == requests.codes.ok:
-        return response.json
+        return response.json()
     else:
         print("Error:", response.status_code, response.text)
 
@@ -54,11 +53,13 @@ def write_to_html_file(content):
 
 
 def main():
-    template_content = read_template()
+    animal_name = "Fox"
     animals_data = fetch_animal(animal_name)
-    animal_info = generate_animals_info(animals_data)
-    replaced_template = replace_placeholder(template_content, animal_info)
-    write_to_html_file(replaced_template)
+    if animals_data:
+        template_content = read_template()
+        animal_info = generate_animals_info(animals_data)
+        replaced_template = replace_placeholder(template_content, animal_info)
+        write_to_html_file(replaced_template)
 
 
 if __name__ == "__main__":
