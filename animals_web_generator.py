@@ -2,13 +2,25 @@ import data_fetcher
 
 
 def read_template():
-    """Reads the HTML template file and returns its content as a string."""
+    """Reads the contents of the HTML template file.
+
+    This function opens the 'animals_template.html' file in read mode and
+    returns the entire content as a string.
+
+    Returns:
+        str: The content of the HTML template file.
+    """
     with open('animals_template.html', 'r') as content:
         return content.read()
 
 
 def serialize_animal(animal_obj):
-    """Generates a string with the HTML content for a single animal."""
+    """Generates HTML content for a single animal.
+
+    This function takes a dictionary representing an animal and
+    returns a string containing the HTML code for displaying that animal's
+    information.
+    """
     output = ''
     output += '<li class="cards__item">\n'
     output += f'<div class="card__title">{animal_obj["name"]}</div>\n'
@@ -28,7 +40,7 @@ def generate_error_message(animal_name):
 
 
 def generate_animals_info(data, animal_name):
-    """Generates a string with the HTML content for all animals."""
+    """Generates HTML content for all animals or an error message."""
     output = ''
     if data:  # Check if data is not None (API call successful)
         for animal in data:
@@ -48,7 +60,8 @@ def replace_placeholder(template, replacement):
 
 
 def write_to_html_file(content):
-    """Writes the provided HTML content to a new file."""
+    """This function takes the generated HTML content and writes it to a new file
+    named 'animals.html' in write mode."""
     with open('animals.html', "w") as new_file:
         return new_file.write(content)
 
