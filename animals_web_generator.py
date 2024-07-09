@@ -55,7 +55,7 @@ def write_to_html_file(content):
 
 def main():
     animal_name = input("Enter animal you want to know: ")
-    animals_data = fetch_animal(animal_name)
+    animals_data = data_fetcher.fetch_data(animal_name)
     template_content = read_template()
     content_to_replace = generate_animals_info(animals_data, animal_name)
     replaced_template = replace_placeholder(template_content, content_to_replace)
