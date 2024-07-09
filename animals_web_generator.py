@@ -1,18 +1,4 @@
-import requests
-
-
-def fetch_animal(name):
-    api_url = 'https://api.api-ninjas.com/v1/animals?name={}'.format(name)
-    response = requests.get(api_url, headers={'X-Api-Key': 'a0ZGEN85wwKRoRX/pNb9eQ==QwE9jROfxws2oVNM'})
-    if response.status_code == requests.codes.ok:
-        data = response.json()
-        if data:
-            return data
-        else:
-            return None
-    else:
-        print("Error:", response.status_code, response.text)
-        return []
+import data_fetcher
 
 
 def read_template():
