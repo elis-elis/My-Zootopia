@@ -1,4 +1,8 @@
 import data_fetcher
+from colorama import init, Fore, Style
+
+# Initialize colorama
+init(autoreset=True)
 
 
 def read_template():
@@ -10,7 +14,7 @@ def read_template():
     Returns:
         str: The content of the HTML template file.
     """
-    with open('animals_template.html', 'r') as content:
+    with open('animals_template.html', 'r', encoding="utf-8") as content:
         return content.read()
 
 
@@ -25,7 +29,8 @@ def serialize_animal(animal_obj):
     output += '<li class="cards__item">\n'
     output += f'<div class="card__title">{animal_obj["name"]}</div>\n'
     output += '<p class="card__text">\n'
-    output += f'<strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
+    if 'diet' in animal_obj["characteristics"]:
+        output += f'<strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
     output += f'<strong>Location:</strong> {animal_obj["locations"][0]}<br/>\n'
     if 'type' in animal_obj["characteristics"]:
         output += f'<strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n'
@@ -67,13 +72,21 @@ def write_to_html_file(content):
 
 
 def main():
-    animal_name = input("Enter animal you want to know: ")
+    """Main function to generate an HTML file displaying animal information.
+
+        This function prompts the user to enter the name of an animal they want to know
+        about, fetches the relevant data, processes it, and generates an HTML file
+        named 'animals.html' displaying the information. If the animal is not found,
+        an error message is displayed instead.
+    """
+    print(Fore.CYAN + Style.BRIGHT + "Welcome to the Animal Information Generator!")
+    animal_name = input(Fore.RED + "Enter animal you want to know: ")
     animals_data = data_fetcher.fetch_data(animal_name)
     template_content = read_template()
     content_to_replace = generate_animals_info(animals_data, animal_name)
     replaced_template = replace_placeholder(template_content, content_to_replace)
     write_to_html_file(replaced_template)
-    print("it's all done. Website was successfully generated to the file animals.html.")
+    print(Fore.YELLOW + Style.BRIGHT + "it's all done. Website was successfully generated to the file animals.html.")
 
 
 if __name__ == "__main__":
