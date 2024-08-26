@@ -1,12 +1,12 @@
 # My Zootopia project
 
-Description:
+## Description:
 
 Zootopia is an engaging Python-based project that enables users to discover information about various animals by fetching data from the API Ninjas Animals API. Users can input the name of an animal, and the program retrieves details (like their diet, location and type) about that animal, which are then formatted and presented in a user-friendly HTML file named animals.html.
 
 * this project is part of the 'Masterscool' curriculum.
-
-Workflow:
+![screenshot.png](screenshot.png)
+## Workflow:
 
 User Input: The program starts by asking the user to enter the name of an animal.
 
